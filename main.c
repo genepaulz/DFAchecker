@@ -19,5 +19,6 @@ int main(int argc, char *argv[])
 //	int *x;
 //	x=10;
 //	printf("%d",x);
+	char _c;
 	return 0;
 }
