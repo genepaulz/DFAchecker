@@ -55,6 +55,8 @@ void isValid(char s[])
 							state=2;
 						if(s[i]=='=')
 							state=3;
+						if(s[i]==' ' && s[i+1]!='=')
+							state=20;
 						break;
 					case 2:
 						if(isalpha(s[i]))
@@ -63,6 +65,8 @@ void isValid(char s[])
 							state=2;
 						if(s[i]=='=')
 							state=3;
+						if(s[i]==' ' && s[i+1]!='=')
+							state=19;
 						break;
 					case 3:
 						if(isdigit(s[i]))
@@ -81,6 +85,8 @@ void isValid(char s[])
 							state=13;
 						if(s[i]=='.')
 							state=9;
+						if(s[i]==' ' && (s[i+1]!=';' || s[i+1]!='.'))
+						state=21;
 						break;
 					case 5:
 						if(isdigit(s[i]))
@@ -91,8 +97,9 @@ void isValid(char s[])
 					case 6:
 						if(isalpha(s[i]))
 							state=10;
-						if(isdigit(s[i]))
+						else if(isdigit(s[i]))
 							state=11;
+							else state=22;
 						break;
 					case 7:
 						if(isalpha(s[i]))
@@ -101,6 +108,8 @@ void isValid(char s[])
 							state=7;
 						if(s[i]==';')
 							state=12;
+							if(s[i]==' ' && s[i+1]!=';')
+							state=20;
 						break;
 					case 8:
 						if(isalpha(s[i]))
@@ -109,6 +118,8 @@ void isValid(char s[])
 							state=7;
 						if(s[i]==';')
 							state=12;
+							if(s[i]==' ' && s[i+1]!=';')
+							state=20;
 						break;
 					case 9:
 						if(isdigit(s[i]))
@@ -116,11 +127,13 @@ void isValid(char s[])
 						break;
 					case 10:
 						if(s[i]==39)
-						state=15;
+							state=15;
+						else state=22;
 						break;
 					case 11:
 						if(s[i]==39)
-						state=15;
+							state=16;
+						else state=22;
 						break;
 					case 12:
 						break;
@@ -130,15 +143,15 @@ void isValid(char s[])
 						break;
 					case 14:
 						if(s[i]==';')
-						state=17;
+							state=17;
 						break;
 					case 15:
 						if(s[i]==';')
-						state=18;
+							state=18;
 						break;
 					case 16:
 						if(s[i]==';')
-						state=18;
+							state=18;
 						break;
 					case 17:
 						break;
