@@ -10,12 +10,5 @@ int main(int argc, char *argv[])
 	char a[2047];
 	scanf("%[^\n]s",a);
 	isValid(a);
-	
-	
-	int _x;
-	int x1;
-	char c;
-	int x^ = 11;
-	int x_c = 1;
 	return 0;
 }
