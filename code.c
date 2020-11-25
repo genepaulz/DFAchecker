@@ -92,8 +92,10 @@ void isValid(char s[])
 							state=8;
 						else if(s[i]=='.')
 							state=6;
-						if(s[i]==' ' && isdigit(s[i+1]))
-								state=18;
+						else if(s[i]==' ' && isdigit(s[i+1]))
+							state=18;
+						else if(isalpha(s[i]))
+							state=18;
 						break;
 					case 5:
 						if(isdigit(s[i]))
@@ -110,9 +112,11 @@ void isValid(char s[])
 					case 7:
 						if(isdigit(s[i]))
 							state=7;
-						if(s[i]==';')
+						else if(s[i]==';')
 							state=8;
-						if(s[i]==' ' && isdigit(s[i+1]))
+						else if(s[i]==' ' && isdigit(s[i+1]))
+							state=18;
+							else if(s[i]=='.')
 							state=18;
 						break;
 					case 8:
@@ -143,7 +147,7 @@ void isValid(char s[])
 						break;
 					case 13:
 						if(s[i]==';')
-						state=14;
+							state=14;
 						else state=18;
 						break;
 					case 14:
@@ -158,6 +162,7 @@ void isValid(char s[])
 							state=16;
 						else if(s[i]==';')
 							state=17;
+						else state=18;
 						break;
 					case 16:
 						if(isdigit(s[i]))
@@ -194,5 +199,9 @@ void isValid(char s[])
 		{
 			printf("Valid\n");
 		}
+}
 
+void outro()
+{
+	printf("\nThank you for using my program!\n");
 }

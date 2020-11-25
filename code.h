@@ -4,4 +4,5 @@
 void intro();
 void isValid(char s[]);
 int isFinal(int state);
+void outro();
 #endif

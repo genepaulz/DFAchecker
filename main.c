@@ -10,5 +10,6 @@ int main(int argc, char *argv[])
 	char a[2047];
 	scanf("%[^\n]s",a);
 	isValid(a);
+	outro();
 	return 0;
 }
