@@ -5,6 +5,7 @@
 #include <ctype.h>
 
 
+
 void intro()
 {
 	printf("Programming Assignment DFAChecker\n");
@@ -12,14 +13,13 @@ void intro()
 	printf("Submitted to Maam Cherry Lyn Santa Romana\n\n");
 }
 
-int isFinal(int x)
+int isFinal(int state)
 {
-	int flag = 0;
-	int f[4]= {12,13,17,18};
-	int i;
-	for(i=0; i<4; i++)
+	int flag=0,i=0;
+	int f[3]= {8,14,17};
+	for(i=0; i<3; i++)
 		{
-			if(x==f[i])
+			if(state==f[i])
 				{
 					flag=1;
 					break;
@@ -44,143 +44,135 @@ void isValid(char s[])
 			switch(state)
 				{
 					case 0:
-						if(isalpha(s[i]))
+						if(isalpha(s[i]) || s[i]=='_')
 							state=1;
-						else state=20;
+						else state=18;
 						break;
 					case 1:
-						if(isalpha(s[i]))
+						if(isalpha(s[i]) || s[i]=='_')
 							state=1;
 						if(isdigit(s[i]))
 							state=2;
 						if(s[i]=='=')
 							state=3;
 						if(s[i]==' ' && s[i+1]!='=')
-							state=20;
+							state=18;
 						break;
 					case 2:
 						if(isalpha(s[i]))
 							state=1;
-						if(isdigit(s[i]))
+						if(isdigit(s[i]) || s[i]=='_')
 							state=2;
 						if(s[i]=='=')
 							state=3;
 						if(s[i]==' ' && s[i+1]!='=')
-							state=19;
+							state=18;
 						break;
 					case 3:
 						if(isdigit(s[i]))
 							state=4;
-						if(isalpha(s[i]))
-							state=7;
-						if(s[i]=='-')
+						else if(s[i]=='-')
 							state=5;
-						if(s[i]==39)
+						else if(s[i]=='.')
 							state=6;
+
+						else if(s[i]==39)
+							state=9;
+
+						else if(isalpha(s[i]))
+							state=15;
+
+						if(s[i]=='=')
+							state=18;
 						break;
 					case 4:
 						if(isdigit(s[i]))
 							state=4;
-						if(s[i]==';')
-							state=13;
-						if(s[i]=='.')
-							state=9;
-						if(s[i]==' ' && (s[i+1]!=';' || s[i+1]!='.'))
-						state=21;
+						else if(s[i]==';')
+							state=8;
+						else if(s[i]=='.')
+							state=6;
+						if(s[i]==' ' && isdigit(s[i+1]))
+								state=18;
 						break;
 					case 5:
 						if(isdigit(s[i]))
 							state=4;
-						if(s[i]=='.')
-							state=9;
+						else if(s[i]=='.')
+							state=6;
+						else state=18;
 						break;
 					case 6:
+						if(isdigit(s[i]))
+							state=7;
+						else state=18;
+						break;
+					case 7:
+						if(isdigit(s[i]))
+							state=7;
+						if(s[i]==';')
+							state=8;
+						if(s[i]==' ' && isdigit(s[i+1]))
+							state=18;
+						break;
+					case 8:
+						break;
+						break;
+					case 9:
 						if(isalpha(s[i]))
 							state=10;
 						else if(isdigit(s[i]))
 							state=11;
-							else state=22;
-						break;
-					case 7:
-						if(isalpha(s[i]))
-							state=8;
-						if(isdigit(s[i]))
-							state=7;
-						if(s[i]==';')
+						else
 							state=12;
-							if(s[i]==' ' && s[i+1]!=';')
-							state=20;
-						break;
-					case 8:
-						if(isalpha(s[i]))
-							state=8;
-						if(isdigit(s[i]))
-							state=7;
-						if(s[i]==';')
-							state=12;
-							if(s[i]==' ' && s[i+1]!=';')
-							state=20;
-						break;
-					case 9:
-						if(isdigit(s[i]))
-							state=14;
 						break;
 					case 10:
 						if(s[i]==39)
-							state=15;
-						else state=22;
+							state=13;
+						else state=18;
 						break;
 					case 11:
 						if(s[i]==39)
-							state=16;
-						else state=22;
+							state=13;
+						else state=18;
 						break;
 					case 12:
-						break;
+						if(s[i]==39)
+							state=13;
+						else state=18;
 						break;
 					case 13:
-						break;
+						if(s[i]==';')
+						state=14;
+						else state=18;
 						break;
 					case 14:
-						if(s[i]==';')
-							state=17;
+						break;
 						break;
 					case 15:
-						if(s[i]==';')
-							state=18;
+						if(isalpha(s[i]))
+							state=15;
+						else if(s[i]=='_')
+							state=15;
+						else if(isdigit(s[i]))
+							state=16;
+						else if(s[i]==';')
+							state=17;
 						break;
 					case 16:
-						if(s[i]==';')
-							state=18;
+						if(isdigit(s[i]))
+							state=16;
+						else if(s[i]=='_')
+							state=16;
+						else if(isalpha(s[i]))
+							state=15;
+						else if(s[i]==';')
+							state=17;
 						break;
 					case 17:
 						break;
 						break;
 					case 18:
-						;
-						break;
-					case 19:
-						if(!printed)
-							{
-								printf("Invalid\n");
-								printed=1;
-							}
-						break;
-					case 20:
-						if(!printed)
-							{
-								printf("Invalid\n");
-								printed=1;
-							}
-						break;
-					case 21:
-						if(!printed)
-							{
-								printf("Invalid\n");
-								printed=1;
-							}
-						break;
-					case 22:
 						if(!printed)
 							{
 								printf("Invalid\n");
@@ -188,6 +180,7 @@ void isValid(char s[])
 							}
 						break;
 				}
+//			printf("%d\n",state);
 			if(printed)
 				break;
 			i++;

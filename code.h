@@ -3,6 +3,5 @@
 
 void intro();
 void isValid(char s[]);
-int isFinal(int x);
-
+int isFinal(int state);
 #endif
